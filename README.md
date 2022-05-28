@@ -462,18 +462,15 @@ os =
 -- Pattern matching
 
 
-role = "USER"
+administrator = True
 
 message =
-  case role of
-    "ADMINISTRATOR" ->
+  case administrator of
+    True ->
       "Authorized"
       
-    "USER" ->
+    False ->
       "Unauthorized"
-      
-    "ANONYMOUS" ->
-      "Forbidden"
       
       
 -- Pattern matching default case
