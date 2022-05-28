@@ -768,12 +768,10 @@ type UserState
   | Deleted String
   | Banned String
 
-
 type alias User =
   { email : String
   , state : UserState
   }
-
 
 getWelcomeMessage user =
   case user.state of
@@ -784,10 +782,42 @@ getWelcomeMessage user =
       "Connected!"
       
     Deleted reason ->
-      "Account deleted because " ++ reason
+      "Deleted because " ++ reason
       
     Banned reason ->
-      "This account has been banned because " ++ reason
+      "Banned because " ++ reason
+      
+myRegistredUser : User
+myRegistredUser =
+  { email = "john@doe.com"
+  , state = Confirmed
+  }
+  
+getWelcomeMessage myRegistredUser -- "Connected!"
+  
+myUnregistredUser : User
+myUnregistredUser =
+  { email = "jane@doe.com"
+  , state = WaitingConfirmation
+  }
+  
+getWelcomeMessage myUnregistredUser -- "Please, confirm your email before signin"
+  
+myBannedUser : User
+myBannedUser =
+  { email = "jane@doe.com"
+  , state = Banned "Bad behavior in chat"
+  }
+  
+getWelcomeMessage myBannedUser -- "Banned because Bad behavior in chat"
+  
+myDeletedUser : User
+myDeletedUser =
+  { email = "jane@doe.com"
+  , state = Deleted "Account timeout registration exceeded"
+  }
+      
+getWelcomeMessage myDeletedUser -- "Deleted because Account timeout registration exceeded"
       
       
 -- Generic types
