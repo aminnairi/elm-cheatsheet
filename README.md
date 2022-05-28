@@ -429,19 +429,6 @@ updatedUser =
 .age { firstname = "John", age = 42 } -- 42
 
 
--- Partial application
-
-
-add first second =
-  first + second
-  
-add 1 2 -- 3
-
-increment = add 1
-
-increment 2 -- 3
-
-
 -- Condition
 
 
@@ -666,6 +653,30 @@ greet name =
 welcome : String -> String -> String
 welcome firstname lastname =
   "Welcome, " ++ firstname ++ " " ++ lastname
+  
+  
+-- Function partial application
+
+
+add : Int -> Int -> Int
+add first second =
+  first + second
+  
+increment : Int -> Int
+increment value =
+  add 1 value
+  
+inc : Int -> Int
+inc =
+  add 1
+  
+firstResult : Int
+firstResult =
+  increment 2 -- 3
+  
+secondResult : Int
+secondResult =
+  inc 2 -- 3
   
   
 -- Type alias  
