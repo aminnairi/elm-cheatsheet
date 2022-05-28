@@ -321,9 +321,11 @@ user =
   , age = 42
   }
   
-user.age
+userAge =
+  user.age
 
-user.name
+userName =
+  user.name
   
 
 -- Functions
@@ -338,6 +340,20 @@ hello firstname lastname =
   "Hello, " ++ firstname ++ ", " ++ lastname
   
 hello "John" "DOE" -- "Hello, John DOE"
+
+
+-- Anonymous functions
+
+
+greetings =
+  \firstname -> "Hello, " ++ firstname
+    
+greetings "John" -- "Hello, John"
+
+welcome =
+  \firstname lastname -> "Hello, " ++ firstname ++ " " ++ lastname
+    
+welcome "John" "DOE" -- "Hello, John DOE"
 
 
 -- Functions ignored arguments
