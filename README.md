@@ -833,10 +833,7 @@ type alias Hat =
   , price : Float
   }
   
-type alias HatCart =
-  Cart Hat
-  
-getHatCartMessage : HatCat -> String
+getHatCartMessage : Cart Hat -> String
 getHatCartMessage hatCart =
   case hatCart of
     Empty ->
@@ -851,10 +848,7 @@ type alias Jean =
   , price : Float
   }
 
-type alias JeanCart =
-  Cart Jean
-  
-getJeanCartMessage : JeanCart -> String
+getJeanCartMessage : Cart Jean -> String
 getJeanCartMessage jeanCart =
   case jeanCart of
     Empty ->
@@ -867,18 +861,6 @@ getJeanCartMessage jeanCart =
 -- Error handling
 
 
-divide : Float -> Float -> Float
-divide numerator denominator =
-  numerator / denominator
-  
-firstResult : Float
-firstResult =
-  divide 1 2 -- 0.5
-  
-secondResult : Float
-secondResult =
-  divide 1 0 -- Infinity
-
 safeDivide : Float -> Float -> Maybe Float
 safeDivide numerator denominator =
   if denominator == 0 then
@@ -887,96 +869,15 @@ safeDivide numerator denominator =
   else
     Just (numerator / denominator)
     
-thirdResult : Maybe Float
-thirdResult =
+firstResult : Maybe Float
+firstResult =
   divide 1 2 -- Just 0.5
 
-fourthResult : Maybe Float
-fourthResult =
+secondResult : Maybe Float
+secondResult =
   divide 1 0 -- Nothing
-
-
--- Error handling default value
-
-
-safeDivide : Float -> Float -> Maybe Float
-safeDivide numerator denominator =
-  if denominator == 0 then
-    Nothing
-    
-  else
-    Just (numerator / denominator)
-    
-firstResult : Float
-firstResult =
-  Maybe.withDefault 0 (divide 1 2) -- 0.5
-  
-secondResult : Float
-secondResult =
-  Maybe.withDefault 0 (divide 1 0) -- 0
-
-
--- Error handling and continuation
-
-
-safeDivide : Float -> Float -> Maybe Float
-safeDivide numerator denominator =
-  if denominator == 0 then
-    Nothing
-    
-  else
-    Just (numerator / denominator)
-    
-add : Float -> Float -> Float
-add first second =
-  first + second
-    
-firstResult : Float
-firstResult =
-  divide 1 2
-    |> Maybe.map (add 1)
-    |> Maybe.withDefault 0 -- 1.5
-    
-secondResult : Float
-secondResult =
-  divide 1 0
-    |> Maybe.map (add 1)
-    |> Maybe.withDefault 0 -- 0
   
   
--- Error handling and maybe continuation
-
-
-safeDivideBy : Float -> Float -> Maybe Float
-safeDivideBy denominator numerator =
-  if denominator == 0 then
-    Nothing
-    
-  else
-    Just (numerator / denominator)
-    
-firstResult : Float
-firstResult =
-  10
-    |> safeDivideBy 2
-    |> Maybe.andThen (safeDivideBy 2)
-    |> Maybe.withDefault 0 -- 2.5
-    
-secondResult : Float
-secondResult =
-  10
-    |> safeDivideBy 0
-    |> Maybe.andThen (safeDivideBy 2)
-    |> Maybe.withDefault 0 -- 0
-    
-thirdResult : Float
-thirdResult =
-  10
-    |> safeDivideBy 2
-    |> Maybe.andThen (safeDivideBy 0)
-    |> Maybe.withDefault 0 -- 0
-    
-    
 -- Error handling pattern matching
 
 
@@ -1001,6 +902,22 @@ message =
 -- Error handling with reason
 
 
+safeDivideBy : Float -> Float -> Result Float String
+safeDivideBy denominator numerator =
+  if denominator == 0 then
+    Err "Denominator cannot be equal to zero"
+    
+  else
+    Ok (numerator / denominator)
+    
+safeDivideBy 1 2 -- Ok 0.5
+
+safeDivideBy 1 0 -- Err "Denominator cannot be equal to zero"
+
+
+-- Error handling with reason and pattern matching
+
+    
 safeDivideBy : Float -> Float -> Result Float String
 safeDivideBy denominator numerator =
   if denominator == 0 then
