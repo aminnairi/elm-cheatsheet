@@ -902,7 +902,7 @@ message =
 -- Error handling with reason
 
 
-safeDivideBy : Float -> Float -> Result Float String
+safeDivideBy : Float -> Float -> Result String Float
 safeDivideBy denominator numerator =
   if denominator == 0 then
     Err "Denominator cannot be equal to zero"
@@ -910,9 +910,13 @@ safeDivideBy denominator numerator =
   else
     Ok (numerator / denominator)
     
-safeDivideBy 1 2 -- Ok 0.5
+firstResult : Result String Float
+firstResult =
+  safeDivideBy 1 2 -- Ok 0.5
 
-safeDivideBy 1 0 -- Err "Denominator cannot be equal to zero"
+secondResult : Result String Float
+secondResult =
+  safeDivideBy 1 0 -- Err "Denominator cannot be equal to zero"
 
 
 -- Error handling with reason and pattern matching
