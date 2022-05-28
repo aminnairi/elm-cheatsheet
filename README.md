@@ -1,9 +1,6 @@
 # elm-cheatsheet
 
 ```elm
--- Comments
-
-
 -- Single line comment
 
 {-- Multiline
