@@ -688,9 +688,18 @@ type alias User =
   , age : Int
   }
   
+myUser : User
+myUser =
+  { firstname = "John"
+  , lastname = "DOE"
+  , age = 42
+  }
+  
 getLastname : User -> String
 getLastname { lastname } =
   lastname
+  
+getLastname myUser -- "DOE"
   
   
 -- Custom type
@@ -698,12 +707,10 @@ getLastname { lastname } =
 
 type UserState = WaitingConfirmation | Confirmed | Deleted | Banned
 
-
 type alias User =
   { email : String
   , state : UserState
   }
-
 
 getWelcomeMessage user =
   case user.state of
@@ -719,6 +726,38 @@ getWelcomeMessage user =
     Banned ->
       "This account has been banned"
       
+myRegistredUser : User
+myRegistredUser =
+  { email = "john@doe.com"
+  , state = Confirmed
+  }
+  
+getWelcomeMessage myRegistredUser -- "Connected!"
+  
+myUnregistredUser : User
+myUnregistredUser =
+  { email = "jane@doe.com"
+  , state = WaitingConfirmation
+  }
+  
+getWelcomeMessage myUnregistredUser -- "Please, confirm your email before signin"
+  
+myBannedUser : User
+myBannedUser =
+  { email = "jane@doe.com"
+  , state = Banned
+  }
+  
+getWelcomeMessage myBannedUser -- "This account has been banned"
+  
+myDeletedUser : User
+myDeletedUser =
+  { email = "jane@doe.com"
+  , state = Deleted
+  }
+      
+getWelcomeMessage myDeletedUser -- "Account not found"
+
       
 -- Custom type with data
 
