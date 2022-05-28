@@ -1025,4 +1025,28 @@ import Html
 
 view =
   Html.text "Home page"
+  
+  
+-- Port module
+
+
+port module Main exposing (main)
+
+
+-- Outgoing port
+
+
+port vibrate : () -> Cmd message
+
+port copyToClipbpard : String -> Message
+
+
+-- Incoming port
+
+
+port onFullScreen : (() -> message) -> Sub message
+
+port onWindowResized : (Int -> message) -> Sub message
+
+port onPasteFromClipboard : (String -> message) -> Sub message
 ```
