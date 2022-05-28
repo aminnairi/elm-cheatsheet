@@ -538,6 +538,50 @@ fibonacci value =
     fibonacci (value - 1) + fibonacci (value - 2)
     
     
+-- Loops
+
+
+includedIn items item =
+  case items of
+    [] ->
+      False
+      
+    current :: others
+      if item == current then
+        True
+        
+      else
+        includedIn others item
+        
+        
+includedIn ["banana", "apple"] "pear" -- False
+
+includedIn ["banana", "apple"] "banana" -- True
+
+
+-- Loops with state
+
+
+countSimilarIn items count item =
+  case items of
+    [] ->
+      count
+      
+    current :: others ->
+      if current == item then
+        countSimilarIn others (count + 1) item
+        
+      else
+        countSimilarIn others count item
+        
+        
+countSimilarIn ["a", "b", "c", "b"] 0 "b" -- 2
+
+countSimilarIn ["a", "b", "c", "b"] 0 "a" -- 1
+
+countSimilarIn ["a", "b", "c", "b"] 0 "e" -- 0
+    
+    
 -- Chained functions
 
 add first second =
