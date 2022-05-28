@@ -23,9 +23,9 @@
 -- String concatenation
 
 
-"Hello, " ++ "world!" -- "Hello, world!"
+"Hello, " ++ "world!"
 
-"Triumph " ++ "Street " ++ "Triple" -- "Triumph Street Triple"
+"Triumph " ++ "Street " ++ "Triple"
 
 
 -- String equality
@@ -58,13 +58,13 @@
 
 -- Integer addition
 
-1 + 2 -- 3
+1 + 2
 
 
 -- Integer soustracttion
 
 
-1 - 2 -- -1
+1 - 2
 
 
 -- Integer division
@@ -206,13 +206,17 @@ True || False
 -- List concatenation
 
 
-[ 1 ] ++ [ 2 ] == [ 1, 2 ]
+[ 1 ] ++ [ 2 ] -- [ 1, 2 ]
 
-[ 3 ] ++ [ 4 ] ++ [ 5 ] == [ 3, 4, 5 ]
+[ 3 ] ++ [ 4 ] ++ [ 5 ] -- [ 3, 4, 5 ]
 
-1 :: [] == [ 1 ]
 
-1 :: 2 :: 3 :: [] == [ 1, 2, 3 ]
+-- List construction
+
+
+1 :: [] -- [ 1 ]
+
+1 :: 2 :: 3 :: [] -- [ 1, 2, 3 ]
 
 
 -- List equality
