@@ -922,7 +922,7 @@ secondResult =
 -- Error handling with reason and pattern matching
 
     
-safeDivideBy : Float -> Float -> Result Float String
+safeDivideBy : Float -> Float -> Result String Float
 safeDivideBy denominator numerator =
   if denominator == 0 then
     Err "Denominator cannot be equal to zero"
@@ -945,14 +945,17 @@ message =
 
 import Html
 
-Html.div [] [ Html.text "Hello, world!" ]
+main =
+  Html.div [] [ Html.text "Hello, world!" ]
 
 
 -- Granular import
 
+
 import Html exposing (div, text)
 
-div [] [ text "Hello, world!" ]
+main =
+  div [] [ text "Hello, world!" ]
 
 
 -- Renamed Import
@@ -960,22 +963,29 @@ div [] [ text "Hello, world!" ]
 
 import Html as H
 
-H.text "Hello, world!"
+main =
+  H.text "Hello, world!"
 
 
 -- Import and expose everything
 
+
 import Html exposing (..)
 
-div [] [ text "Hello, world!" ]
+main =
+  div [] [ text "Hello, world!" ]
 
 
 -- Import from another folder
 
 
 import Html
-import Page.Home      -- ./src/Page/Home.elm
-import Page.NotFound  -- ./src/Page/NotFound.elm
+
+import Page.Home      
+-- ./src/Page/Home.elm
+
+import Page.NotFound  
+-- ./src/Page/NotFound.elm
 
 
 -- Export
@@ -1008,7 +1018,8 @@ main = view
 -- Export from another folder
 
 
-module Page.Home exposing (view) -- ./src/Page/Home.elm
+module Page.Home exposing (view)
+-- ./src/Page/Home.elm
 
 import Html
 
