@@ -1027,6 +1027,60 @@ view =
   Html.text "Home page"
   
   
+-- Core Modules (useless to import)
+
+import Array
+-- https://package.elm-lang.org/packages/elm/core/latest/Array
+
+import Basics
+-- https://package.elm-lang.org/packages/elm/core/latest/Basics
+
+import Bitwise
+-- https://package.elm-lang.org/packages/elm/core/latest/Bitwise
+
+import Char
+-- https://package.elm-lang.org/packages/elm/core/latest/Char
+
+import Debug
+-- https://package.elm-lang.org/packages/elm/core/latest/Debug
+
+import Dict
+-- https://package.elm-lang.org/packages/elm/core/latest/Dict
+
+import List
+-- https://package.elm-lang.org/packages/elm/core/latest/List
+
+import Maybe
+-- https://package.elm-lang.org/packages/elm/core/latest/Maybe
+
+import Platform
+-- https://package.elm-lang.org/packages/elm/core/latest/Platform
+
+import Platform.Cmd
+-- https://package.elm-lang.org/packages/elm/core/latest/Platform-Cmd
+
+import Platform.Sub
+-- https://package.elm-lang.org/packages/elm/core/latest/Platform-Sub
+
+import Process
+-- https://package.elm-lang.org/packages/elm/core/latest/Process
+
+import Result
+-- https://package.elm-lang.org/packages/elm/core/latest/Result
+
+import Set
+-- https://package.elm-lang.org/packages/elm/core/latest/Set
+
+import String
+-- https://package.elm-lang.org/packages/elm/core/latest/String
+
+import Task
+-- https://package.elm-lang.org/packages/elm/core/latest/Task
+
+import Tuple
+-- https://package.elm-lang.org/packages/elm/core/latest/Tuple
+  
+  
 -- Port module
 
 
