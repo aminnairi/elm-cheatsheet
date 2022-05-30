@@ -1,5 +1,11 @@
 # elm-cheatsheet
 
+## Requirements
+
+- [Node](https://nodejs.org/en/)
+- [NPM](https://nodejs.org/en/)
+- [NPX](https://nodejs.org/en/)
+
 ## Command-line
 
 ```bash
