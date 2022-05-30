@@ -1,5 +1,44 @@
 # elm-cheatsheet
 
+## Command-line
+
+```bash
+# Install Elm locally
+npm install --save-dev elm
+
+# initialize a new Elm folder
+npx elm init
+
+# Interactive Elm Shell
+npx elm repl
+
+# Development server
+npx elm reactor
+
+# Development server listening to a wanted port
+npx elm reactor --port 8000
+
+# Compile to index.html (with JavaScript)
+npx elm make src/Main.elm
+
+# Compile to index.html for development environments
+npx elm make --debug src/Main.elm
+
+# Compile to index.html for production environments
+npx elm make --optimize src/Main.elm
+
+# Compile to JavaScript
+npx elm make --output index.js src/Main.elm
+
+# Compile to HTML (with JavaScript)
+npx elm make --output elm.html src/Main.elm
+
+# Install a package from https://package.elm-lang.org/
+npx elm install elm/parser
+```
+
+## Syntax
+
 ```elm
 -- Single line comment
 
@@ -1126,3 +1165,4 @@ port onPasteFromClipboard : (String -> message) -> Sub message
       });
     }); --}
 ```
+
