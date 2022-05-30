@@ -355,7 +355,7 @@ name =
   "Rex"
   
   
--- Record constant access
+-- Record value access
 
   
 user =
@@ -368,6 +368,21 @@ userAge =
 
 userName =
   user.name
+  
+  
+-- Record value access alternative
+
+  
+user =
+  { name = "John"
+  , age = 42
+  }
+  
+userAge =
+  .age user
+
+userName =
+  .name user
   
 
 -- Functions
@@ -1171,4 +1186,3 @@ port onPasteFromClipboard : (String -> message) -> Sub message
       });
     }); --}
 ```
-
