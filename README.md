@@ -772,6 +772,7 @@ type alias User =
   , state : UserState
   }
 
+getWelcomeMessage : User
 getWelcomeMessage user =
   case user.state of
     WaitingConfirmation ->
@@ -931,11 +932,11 @@ safeDivide numerator denominator =
     
 firstResult : Maybe Float
 firstResult =
-  divide 1 2 -- Just 0.5
+  safeDivide 1 2 -- Just 0.5
 
 secondResult : Maybe Float
 secondResult =
-  divide 1 0 -- Nothing
+  safeDivide 1 0 -- Nothing
   
   
 -- Error handling pattern matching
@@ -951,7 +952,7 @@ safeDivideBy denominator numerator =
     
 message : String
 message =
-  case safeDivide 1 0 of
+  case safeDivideBy 1 0 of
     Just result ->
       "There is a result"
       
