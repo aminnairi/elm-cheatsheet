@@ -94,11 +94,44 @@ npx elm install elm/parser
 "Hatred" < "Forgiveness"
 
 
--- Integers
+-- Integer
+
+
 123
 
 
+-- Signed integer
+
+
+-456
+
+
+-- Hexadecimal integer lower case notation
+
+
+0xab12
+
+
+-- Hexadecimal integer upper case notation
+
+
+0xAB12
+
+
+-- Exponential integer notation
+
+
+1e10
+
+
+-- Signed exponential integer notation
+
+
+-2e8
+
+
 -- Integer addition
+
 
 1 + 2
 
