@@ -1216,34 +1216,6 @@ import Tuple
 -- https://package.elm-lang.org/packages/elm/core/latest/Tuple
   
   
--- Port module
-
-
-port module Main exposing (main)
-
-
--- Outgoing port
-
-
-port vibrate : () -> Cmd message
-
-
-port copyToClipbpard : String -> Message
-
-
-
--- Incoming port
-
-
-port onFullScreen : (() -> message) -> Sub message
-
-
-port onWindowResized : (Int -> message) -> Sub message
-
-
-port onPasteFromClipboard : (String -> message) -> Sub message
-
-
 -- The Elm Architecture
 
 
@@ -1333,6 +1305,185 @@ main =
         , view = view
         , update = update
         }
+        
+        
+-- Flags
+
+
+module Main exposing (main)
+
+
+import Browser
+import Html exposing (Html)
+
+
+type alias Model =
+  { message : String }
+  
+
+type Message = None
+
+
+type alias Flags = String
+  
+
+initialModel : Flags -> (Model, Cmd Message)
+initialModel flags =
+  ( Model flags, Cmd.none )
+  
+  
+  
+update : Message -> Model -> (Model, Cmd Message)
+update message model =
+  (model, Cmd.none)
+  
+  
+view : Model -> Html Message
+view model =
+  Html.text model.message
+  
+  
+main : Program Flags Model Message
+main =
+  Browser.element
+    { init = initialModel
+    , update = update
+    , view = view
+    , subscriptions = always Sub.none
+    }
+    
+    
+-- Outgoing ports
+
+
+port module Main exposing (main)
+
+
+import Browser
+import Html exposing (Html)
+import Html.Events
+
+
+port vibrate : () -> Cmd message
+port copyToClipboard : String -> Cmd message
+
+
+type alias Model =
+  ()
+  
+
+type Message
+  = Vibrate
+  | CopyToClipboard String
+  
+
+initialModel : () -> (Model, Cmd Message)
+initialModel _ =
+  ( (), Cmd.none )
+  
+  
+update : Message -> Model -> (Model, Cmd Message)
+update message model =
+  case message of
+    Vibrate ->
+      (model, vibrate ())
+      
+    CopyToClipboard text ->
+      (model, copyToClipboard text)
+  
+
+view : Model -> Html Message
+view _ =
+  Html.div
+    []
+    [ Html.button
+      [ Html.Events.onClick Vibrate ]
+      [ Html.text "Vibrate" ]
+    , Html.button
+      [ Html.Events.onClick (CopyToClipboard "Hello from Elm!") ]
+      [ Html.text "Copy" ] 
+    ]
+    
+
+subscriptions : Model -> Sub Message
+subscriptions _ =
+    Sub.none
+  
+main : Program () Model Message
+main =
+  Browser.element
+    { init = initialModel
+    , update = update
+    , view = view
+    , subscriptions = subscriptions
+    }
+
+
+-- Incoming ports
+
+
+port module Main exposing (main)
+
+
+import Browser
+import Html exposing (Html)
+
+
+port onWindowResized : (Int -> message) -> Sub message
+port onFullScreen : (() -> message) -> Sub message
+port onPasteFromClipboard : (String -> message) -> Sub message
+
+
+type alias Model =
+  { message : String }
+  
+
+type Message
+  = WindowResized Int
+  | Paste String
+  | FullScreen
+
+
+initialModel : () -> (Model, Cmd Message)
+initialModel _ =
+  ( Model "Nothing", Cmd.none )
+  
+  
+update : Message -> Model -> (Model, Cmd Message)
+update message model =
+  case message of
+    FullScreen ->
+      ({ model | message = "Fullscreen" }, Cmd.none)
+      
+    Paste text ->
+      ({ model | message = "Copied text " ++ text }, Cmd.none)
+
+    WindowResized size ->
+      ({ model | message = "Window size is now " ++ String.fromInt size }, Cmd.none)
+  
+
+view : Model -> Html Message
+view { message } =
+  Html.text message
+    
+
+subscriptions : Model -> Sub Message
+subscriptions _ =
+    Sub.batch
+      [ onWindowResized WindowResized
+      , onFullScreen (always FullScreen)
+      , onPasteFromClipboard Paste
+      ]
+  
+main : Program () Model Message
+main =
+  Browser.element
+    { init = initialModel
+    , update = update
+    , view = view
+    , subscriptions = subscriptions
+    }
+
 ```
 
 ## JavaScript API
@@ -1342,6 +1493,13 @@ main =
 
 Elm.Main.init({
   node: document.getElementById("elm")
+});
+
+// Flags
+
+Elm.Main.init({
+  node: document.getElementById("elm"),
+  flags: "Hello, world!"
 });
 
 // Elm Outgoing ports
