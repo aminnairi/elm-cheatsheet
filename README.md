@@ -187,12 +187,28 @@ npx elm install elm/parser
 1 < 2
 
 
--- Floats
+-- Float
 
 
 12.34
 
-0.5678
+
+-- Signed float
+
+
+-7.69
+
+
+-- Exponential float notation
+
+
+1.2e3
+
+
+-- Signed exponential float notation
+
+
+-4.2e5
 
 
 -- Float addition
