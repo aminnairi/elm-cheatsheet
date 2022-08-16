@@ -1227,15 +1227,9 @@ port module Main exposing (main)
 
 port vibrate : () -> Cmd message
 
-{-- app.ports.vibrate.subscribe(() => {
-      window.navigator.vibrate(100);
-    }); --}
 
 port copyToClipbpard : String -> Message
 
-{-- app.ports.copyToClipboard.subscribe(string => {
-      window.navigator.clipboard.writeText(string);
-    }); --}
 
 
 -- Incoming port
@@ -1243,24 +1237,12 @@ port copyToClipbpard : String -> Message
 
 port onFullScreen : (() -> message) -> Sub message
 
-{-- window.addEventListener("fullscrenchange", () => {
-      app.ports.onFullScreen.send(null);
-    }); --}
 
 port onWindowResized : (Int -> message) -> Sub message
 
-{-- window.addEventListener("resize", () => {
-      app.ports.onWindowResized.send(window.clientX);
-    }); --}
 
 port onPasteFromClipboard : (String -> message) -> Sub message
 
-{-- document.getElementById("paste").addEventListener("click", () => {
-      window.navigator.clipboard.readText().then(string => {
-        app.ports.onPasteFromClipboard.send(string); 
-      });
-    }); --}
-    
 
 -- The Elm Architecture
 
@@ -1351,4 +1333,54 @@ main =
         , view = view
         , update = update
         }
+```
+
+## JavaScript API
+
+```javascript
+// Initialization
+
+Elm.Main.init({
+  node: document.getElementById("elm")
+});
+
+// Elm Outgoing ports
+
+const app = Elm.Main.init({
+  node: document.getElementById()
+});
+
+app.ports.vibrate.subscribe(() => {
+  window.navigator.vibrate(100);
+});
+
+app.ports.copyToClipboard.subscribe(text => {
+  window.navigator.clipboard.writeText(text).catch(error => {
+    console.error(error);
+  });
+});
+
+// Elm incoming ports
+
+const app = Elm.Main.init({
+  node: document.getElementById()
+});
+
+window.addEventListener("fullscreenchange", () => {
+  if (document.fullscreen) {
+    app.ports.onFullScreen.send();
+  }
+});
+
+window.addEventListener("resize", () => {
+  app.ports.onWindowResized.send(window.clientX);
+});
+
+window.addEventListener("paste", () => {
+  window.navigator.clipboard.readText().then(text => {
+    app.ports.onPasteFromClipboard.send(text);
+  }).catch(error => {
+    console.error(error);
+  });
+});
 ```
