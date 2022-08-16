@@ -1268,7 +1268,7 @@ port onPasteFromClipboard : (String -> message) -> Sub message
 module Main exposing (main)
 
 
--- IMPORTS
+{-- IMPORTS --}
 
 
 import Browser
@@ -1276,7 +1276,7 @@ import Html exposing (Html)
 import Html.Events
 
 
--- TYPES
+{-- TYPES --}
 
 
 type alias Model =
@@ -1288,7 +1288,7 @@ type Message
     | Decrement
     
     
--- MODEL
+{-- MODEL --}
 
 
 initialModel : Model
@@ -1296,7 +1296,7 @@ initialModel =
     { counter = 0 }
 
 
--- UPDATE
+{-- UPDATE --}
 
 
 update : Message -> Model -> Model
@@ -1309,7 +1309,7 @@ update message model =
             { model | counter = model.counter - 1 }
             
             
--- VIEW
+{-- VIEW --}
 
 
 viewDecrementButton : Html Message
@@ -1341,7 +1341,7 @@ view model =
     ]
     
     
--- MAIN
+{-- MAIN --}
 
 
 main : Program () Model Message
