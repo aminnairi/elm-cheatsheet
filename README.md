@@ -434,32 +434,40 @@ userName =
   .name user
   
 
--- Functions
+-- Function definition
 
 
 greetings name =
   "Greetings, " ++ name ++ "!"
+  
+getRectangleArea height width =
+  height * width
+  
+join first second third =
+  first ++ ", " ++ second ++ ", " ++ third
+  
+  
+-- Function call
+
 
 greetings "You" -- "Greetings, You!"
 
-hello firstname lastname =
-  "Hello, " ++ firstname ++ ", " ++ lastname
+getRectangleArea 3 4 -- 12
   
-hello "John" "DOE" -- "Hello, John DOE"
+join "Red" "Green" "Blue" -- "Red, Green, Blue"
 
 
--- Anonymous functions
+-- Anonymous function definition
 
 
 greetings =
-  \firstname -> "Hello, " ++ firstname
-    
-greetings "John" -- "Hello, John"
-
-welcome =
-  \firstname lastname -> "Hello, " ++ firstname ++ " " ++ lastname
-    
-welcome "John" "DOE" -- "Hello, John DOE"
+  \name -> "Greetings, " ++ name ++ "!"
+  
+getRectangleArea =
+  \height width -> height * width
+  
+join =
+  \first second third -> first ++ ", " ++ second ++ ", " ++ third
 
 
 -- Functions ignored arguments
@@ -474,6 +482,23 @@ greeter _ _ =
   "Hello, you!"
   
 greeter "John" "DOE" -- "Hello, you!"
+
+
+-- Function multiple instruction
+
+
+doubleSum first second =
+  let
+    doubledFirst =
+      first * 2
+    
+    doubledSecond =
+      second * 2
+  in
+    doubledFirst + doubledSecond 
+    
+    
+doubleSum 2 4 -- 12
 
 
 -- Function tuple argument
@@ -746,7 +771,7 @@ toFahrenheit =
 toFahrenheit 15 -- 59
     
     
--- Explicit typed functions
+-- Explicit type
 
 
 name : String
@@ -1235,4 +1260,95 @@ port onPasteFromClipboard : (String -> message) -> Sub message
         app.ports.onPasteFromClipboard.send(string); 
       });
     }); --}
+    
+
+-- The Elm Architecture
+
+
+module Main exposing (main)
+
+
+-- IMPORTS
+
+
+import Browser
+import Html exposing (Html)
+import Html.Events
+
+
+-- TYPES
+
+
+type alias Model =
+    { counter : Int }
+    
+    
+type Message
+    = Increment
+    | Decrement
+    
+    
+-- MODEL
+
+
+initialModel : Model
+initialModel =
+    { counter = 0 }
+
+
+-- UPDATE
+
+
+update : Message -> Model -> Model
+update message model =
+    case message of
+        Increment ->
+            { model | counter = model.counter + 1 }
+
+        Decrement ->
+            { model | counter = model.counter - 1 }
+            
+            
+-- VIEW
+
+
+viewDecrementButton : Html Message
+viewDecrementButton =
+  Html.button
+    [ Html.Events.onClick Decrement ]
+    [ Html.text "Decrement" ]
+    
+    
+viewIncrementButton : Html Message
+viewIncrementButton =
+  Html.button
+    [ Html.Events.onClick Increment ]
+    [ Html.text "Increment" ]
+    
+    
+viewCounter : Int -> Html Message
+viewCounter counter =
+  Html.text (String.fromInt counter)
+
+
+view : Model -> Html Message
+view model =
+  Html.div
+    []
+    [ viewDecrementButton
+    , viewCounter model.counter
+    , viewIncrementButton
+    ]
+    
+    
+-- MAIN
+
+
+main : Program () Model Message
+main =
+    Browser.sandbox
+        { init = initialModel
+        , view = view
+        , update = update
+        }
 ```
