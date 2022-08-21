@@ -549,11 +549,34 @@ greet myUser -- "Hello, John"
 
 
 user =
-  { firstname = "John" }
+  { firstname = "John"
+  , lastname = "DOE",
+  , email = "johndoe@domain.com"
+  }
 
 updatedUser =
-  { user | firstname = "Jane" } -- { user = "Jane" }
+  { user | firstname = "Jane" }
+  
+-- { firstname = "Jane", lastname = "DOE", email = "johndoe@gmail.com" }
 
+
+-- Record multiple fields update
+
+
+user =
+  { firstname = "John"
+  , lastname = "DOE",
+  , email = "johndoe@domain.com"
+  }
+
+updatedUser =
+  { user
+    | firstname = "Jane"
+    , email = "janedoe@domain.com"
+  }
+  
+-- { firstname = "Jane", lastname = "DOE", email = "janedoe@gmail.com" }
+  
 
 -- Record Access
 
@@ -1282,15 +1305,17 @@ viewIncrementButton =
     
 viewCounter : Int -> Html Message
 viewCounter counter =
-  Html.text (String.fromInt counter)
+  counter
+    |> String.fromInt
+    |> Html.text
 
 
 view : Model -> Html Message
-view model =
+view { counter } =
   Html.div
     []
     [ viewDecrementButton
-    , viewCounter model.counter
+    , viewCounter counter
     , viewIncrementButton
     ]
     
@@ -1339,8 +1364,8 @@ update message model =
   
   
 view : Model -> Html Message
-view model =
-  Html.text model.message
+view { message } =
+  Html.text message
   
   
 main : Program Flags Model Message
